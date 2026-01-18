@@ -64,7 +64,7 @@ export function canColor(stream, sniffFlags = true) {
 		return true;
 	}
 
-	if (stream && !(stream && stream.isTTY) && forceColor === undefined) {
+	if (stream && !stream.isTTY && forceColor === undefined) {
 		return false;
 	}
 
