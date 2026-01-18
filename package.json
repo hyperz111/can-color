@@ -1,24 +1,21 @@
 {
-	"name": "supports-color",
+	"name": "has-color",
 	"version": "10.2.2",
 	"description": "Detect whether a terminal supports color",
 	"license": "MIT",
-	"repository": "chalk/supports-color",
-	"funding": "https://github.com/chalk/supports-color?sponsor=1",
-	"author": {
-		"name": "Sindre Sorhus",
-		"email": "sindresorhus@gmail.com",
-		"url": "https://sindresorhus.com"
-	},
+	"repository": "https://github.com/hyperz111/has-color",
+	"author": "Hyper-Z11 (https://github.com/hyperz111)",
 	"type": "module",
 	"exports": {
-		"types": "./index.d.ts",
-		"node": "./index.js",
-		"default": "./browser.js"
+		".": {
+			"types": "./index.d.ts",
+			"node": "./index.js",
+			"default": "./browser.js"
+		}
 	},
 	"sideEffects": false,
 	"engines": {
-		"node": ">=18"
+		"node": ">=20"
 	},
 	"scripts": {
 		"test": "xo && node --test && tstyche"
