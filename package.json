@@ -18,7 +18,8 @@
 		"node": ">=20"
 	},
 	"scripts": {
-		"test": "xo && node --test && tstyche"
+		"test": "xo && node --test && tstyche",
+		"format": "prettier -w ."
 	},
 	"files": [
 		"index.js",
@@ -49,7 +50,9 @@
 		"16m"
 	],
 	"devDependencies": {
+		"@hyperz111/prettier-config": "^1.0.3",
 		"@types/node": "^22.10.2",
+		"prettier": "^3.8.0",
 		"tstyche": "^6.0.2",
 		"xo": "^0.60.0"
 	}

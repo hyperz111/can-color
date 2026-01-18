@@ -1,7 +1,7 @@
-import process from 'node:process';
+import process from "node:process";
 
-const {argv, env, platform} = process;
-const terminatorPosition = argv.indexOf('--');
+const { argv, env, platform } = process;
+const terminatorPosition = argv.indexOf("--");
 
 // Some code is from: https://github.com/sindresorhus/has-flag/blob/main/index.js
 function hasFlag(flag) {
@@ -11,22 +11,22 @@ function hasFlag(flag) {
 
 // eslint-disable-next-line complexity -- Intentionally
 export function canColor(stream, sniffFlags = true) {
-	let flagForceColor = hasFlag('--no-color') ? false : (hasFlag('--color') ? true : undefined);
+	let flagForceColor = hasFlag("--no-color") ? false : hasFlag("--color") ? true : undefined;
 
 	let noFlagForceColor;
-	if ('FORCE_COLOR' in env) {
+	if ("FORCE_COLOR" in env) {
 		switch (env.FORCE_COLOR) {
-			case 'true': {
+			case "true": {
 				noFlagForceColor = true;
 				break;
 			}
 
-			case 'false': {
+			case "false": {
 				noFlagForceColor = false;
 				break;
 			}
 
-			case '': {
+			case "": {
 				noFlagForceColor = true;
 				break;
 			}
@@ -52,7 +52,7 @@ export function canColor(stream, sniffFlags = true) {
 
 	// Check for Azure DevOps pipelines.
 	// Has to be above the `!stream.isTTY` check.
-	if ('TF_BUILD' in env && 'AGENT_NAME' in env) {
+	if ("TF_BUILD" in env && "AGENT_NAME" in env) {
 		return true;
 	}
 
@@ -62,16 +62,23 @@ export function canColor(stream, sniffFlags = true) {
 
 	forceColor ??= false;
 
-	return env.TERM === 'dumb' ? forceColor : platform === 'win32'
-		|| ('CI' in env && ((['GITHUB_ACTIONS', 'GITEA_ACTIONS', 'CIRCLECI', 'TRAVIS', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => sign in env) || env.CI_NAME === 'codeship') || forceColor))
-		|| ('TEAMCITY_VERSION' in env && /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION))
-		|| env.COLORTERM === 'truecolor'
-		|| env.TERM === 'xterm-kitty'
-		|| env.TERM === 'xterm-ghostty'
-		|| env.TERM === 'wezterm'
-		|| ('TERM_PROGRAM' in env && ['iTerm.app', 'Apple_Terminal'].includes(env.TERM_PROGRAM))
-		|| /-256(color)?$/i.test(env.TERM)
-		|| /^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env.TERM)
-		|| 'COLORTERM' in env
-		|| forceColor;
+	return env.TERM === "dumb"
+		? forceColor
+		: platform === "win32" ||
+				("CI" in env &&
+					(["GITHUB_ACTIONS", "GITEA_ACTIONS", "CIRCLECI", "TRAVIS", "APPVEYOR", "GITLAB_CI", "BUILDKITE", "DRONE"].some(
+						(sign) => sign in env,
+					) ||
+						env.CI_NAME === "codeship" ||
+						forceColor)) ||
+				("TEAMCITY_VERSION" in env && /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION)) ||
+				env.COLORTERM === "truecolor" ||
+				env.TERM === "xterm-kitty" ||
+				env.TERM === "xterm-ghostty" ||
+				env.TERM === "wezterm" ||
+				("TERM_PROGRAM" in env && ["iTerm.app", "Apple_Terminal"].includes(env.TERM_PROGRAM)) ||
+				/-256(color)?$/i.test(env.TERM) ||
+				/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env.TERM) ||
+				"COLORTERM" in env ||
+				forceColor;
 }

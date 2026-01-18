@@ -15,10 +15,10 @@ npm install has-color
 ## Usage
 
 ```js
-import {hasColor} from 'has-color';
+import { hasColor } from "has-color";
 
 if (hasColor(process.stdout)) {
-	console.log('Terminal stdout supports color');
+	console.log("Terminal stdout supports color");
 }
 ```
 

@@ -1,1 +1,1 @@
-export {canColor} from './index.js';
+export { canColor } from "./index.js";
