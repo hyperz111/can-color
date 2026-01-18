@@ -1,1 +1,1 @@
-export {default} from './index.js';
+export {canColor} from './index.js';
