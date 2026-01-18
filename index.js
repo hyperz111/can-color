@@ -1,5 +1,6 @@
-import {argv, env, platform} from 'node:process';
+import process from 'node:process';
 
+const {argv, env, platform} = process;
 const terminatorPosition = argv.indexOf('--');
 
 // Some code is from: https://github.com/sindresorhus/has-flag/blob/main/index.js
@@ -63,7 +64,7 @@ export function canColor(stream, sniffFlags = true) {
 		return true;
 	}
 
-	if (stream && !stream.isTTY && forceColor === undefined) {
+	if (stream && !(stream && stream.isTTY) && forceColor === undefined) {
 		return false;
 	}
 
@@ -78,11 +79,35 @@ export function canColor(stream, sniffFlags = true) {
 	}
 
 	if ('CI' in env) {
-		return (['TRAVIS', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => sign in env) || env.CI_NAME === 'codeship') || forceColor;
+		return (['GITHUB_ACTIONS', 'GITEA_ACTIONS', 'CIRCLECI', 'TRAVIS', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => sign in env) || env.CI_NAME === 'codeship') || forceColor;
 	}
 
 	if ('TEAMCITY_VERSION' in env) {
 		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION);
+	}
+
+	if (env.COLORTERM === 'truecolor') {
+		return true;
+	}
+
+	if (env.TERM === 'xterm-kitty') {
+		return true;
+	}
+
+	if (env.TERM === 'xterm-ghostty') {
+		return true;
+	}
+
+	if (env.TERM === 'wezterm') {
+		return true;
+	}
+
+	if ('TERM_PROGRAM' in env && ['iTerm.app', 'Apple_Terminal'].includes(env.TERM_PROGRAM)) {
+		return true;
+	}
+
+	if (/-256(color)?$/i.test(env.TERM)) {
+		return true;
 	}
 
 	if (/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env.TERM)) {
