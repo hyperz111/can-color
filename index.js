@@ -5,7 +5,7 @@ const terminatorPosition = argv.indexOf('--');
 
 // Some code is from: https://github.com/sindresorhus/has-flag/blob/main/index.js
 function hasFlag(flag) {
-	const position = argv.indexOf(`--${flag}`);
+	const position = argv.indexOf(flag);
 	return position !== -1 && (terminatorPosition === -1 || position < terminatorPosition);
 }
 
@@ -13,9 +13,9 @@ function hasFlag(flag) {
 export function canColor(stream, sniffFlags = true) {
 	// Calculate from flag
 	let flagForceColor;
-	if (hasFlag('no-color') || hasFlag('no-colors')) {
+	if (hasFlag('--no-color')) {
 		flagForceColor = false;
-	} else if (hasFlag('color') || hasFlag('colors')) {
+	} else if (hasFlag('--color')) {
 		flagForceColor = true;
 	}
 
