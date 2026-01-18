@@ -11,15 +11,8 @@ function hasFlag(flag) {
 
 // eslint-disable-next-line complexity -- Intentionally
 export function canColor(stream, sniffFlags = true) {
-	// Calculate from flag
-	let flagForceColor;
-	if (hasFlag('--no-color')) {
-		flagForceColor = false;
-	} else if (hasFlag('--color')) {
-		flagForceColor = true;
-	}
+	let flagForceColor = hasFlag('--no-color') ? false : (hasFlag('--color') ? true : undefined);
 
-	// Calculate from env
 	let noFlagForceColor;
 	if ('FORCE_COLOR' in env) {
 		switch (env.FORCE_COLOR) {
@@ -47,7 +40,6 @@ export function canColor(stream, sniffFlags = true) {
 		}
 	}
 
-	// Set to flag if "from env" is boolean
 	if (noFlagForceColor !== undefined) {
 		flagForceColor = noFlagForceColor;
 	}
@@ -70,53 +62,16 @@ export function canColor(stream, sniffFlags = true) {
 
 	forceColor ??= false;
 
-	if (env.TERM === 'dumb') {
-		return forceColor;
-	}
-
-	if (platform === 'win32') {
-		return true;
-	}
-
-	if ('CI' in env) {
-		return (['GITHUB_ACTIONS', 'GITEA_ACTIONS', 'CIRCLECI', 'TRAVIS', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => sign in env) || env.CI_NAME === 'codeship') || forceColor;
-	}
-
-	if ('TEAMCITY_VERSION' in env) {
-		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION);
-	}
-
-	if (env.COLORTERM === 'truecolor') {
-		return true;
-	}
-
-	if (env.TERM === 'xterm-kitty') {
-		return true;
-	}
-
-	if (env.TERM === 'xterm-ghostty') {
-		return true;
-	}
-
-	if (env.TERM === 'wezterm') {
-		return true;
-	}
-
-	if ('TERM_PROGRAM' in env && ['iTerm.app', 'Apple_Terminal'].includes(env.TERM_PROGRAM)) {
-		return true;
-	}
-
-	if (/-256(color)?$/i.test(env.TERM)) {
-		return true;
-	}
-
-	if (/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env.TERM)) {
-		return true;
-	}
-
-	if ('COLORTERM' in env) {
-		return true;
-	}
-
-	return forceColor;
+	return env.TERM === 'dumb' ? forceColor : platform === 'win32'
+		|| ('CI' in env && ((['GITHUB_ACTIONS', 'GITEA_ACTIONS', 'CIRCLECI', 'TRAVIS', 'APPVEYOR', 'GITLAB_CI', 'BUILDKITE', 'DRONE'].some(sign => sign in env) || env.CI_NAME === 'codeship') || forceColor))
+		|| ('TEAMCITY_VERSION' in env && /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION))
+		|| env.COLORTERM === 'truecolor'
+		|| env.TERM === 'xterm-kitty'
+		|| env.TERM === 'xterm-ghostty'
+		|| env.TERM === 'wezterm'
+		|| ('TERM_PROGRAM' in env && ['iTerm.app', 'Apple_Terminal'].includes(env.TERM_PROGRAM))
+		|| /-256(color)?$/i.test(env.TERM)
+		|| /^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env.TERM)
+		|| 'COLORTERM' in env
+		|| forceColor;
 }
