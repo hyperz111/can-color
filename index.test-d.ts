@@ -1,9 +1,11 @@
 import {stdout, stderr} from 'node:process';
-import {expectType} from 'tsd';
+import {expect, test} from 'tstyche';
 import {canColor} from './index.js';
 
-expectType<boolean>(canColor(stdout));
-expectType<boolean>(canColor(stderr));
-expectType<boolean>(canColor(undefined));
+test('can-color', () => {
+  expect(canColor(stdout)).type.toBe<boolean>();
+  expect(canColor(stderr)).type.toBe<boolean>();
+  expect(canColor(undefined)).type.toBe<boolean>();
 
-expectType<boolean>(canColor(stdout, true));
+  expect(canColor(stdout, true)).type.toBe<boolean>();
+})
