@@ -1,14 +1,9 @@
 import {stdout, stderr} from 'node:process';
 import {expectType} from 'tsd';
-import supportsColor, {createSupportsColor, type Options, type ColorInfo} from './index.js';
+import {canColor} from './index.js';
 
-const options: Options = {};
+expectType<boolean>(canColor(stdout));
+expectType<boolean>(canColor(stderr));
+expectType<boolean>(canColor(undefined));
 
-expectType<ColorInfo>(supportsColor.stdout);
-expectType<ColorInfo>(supportsColor.stderr);
-
-expectType<ColorInfo>(createSupportsColor(stdout));
-expectType<ColorInfo>(createSupportsColor(stderr));
-expectType<ColorInfo>(createSupportsColor(undefined));
-
-expectType<ColorInfo>(createSupportsColor(stdout, options));
+expectType<boolean>(canColor(stdout, true));
