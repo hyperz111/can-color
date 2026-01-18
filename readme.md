@@ -1,4 +1,4 @@
-# has-color
+# `has-color`
 
 Detect whether a terminal supports color. The minimal fork of [chalk/supports-color](https://github.com/chalk/supports-color), with some differents.
 
@@ -28,7 +28,7 @@ if (hasColor(process.stdout)) {
 
 Return: `boolean`
 
-Convert byte size to human-readable size.
+Detect whether a terminal supports color.
 
 #### `stream?`
 
