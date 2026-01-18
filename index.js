@@ -9,7 +9,7 @@ function hasFlag(flag) {
 }
 
 // eslint-disable-next-line complexity -- Intentionally
-export function createSupportsColor(stream, sniffFlags = true) {
+export function canColor(stream, sniffFlags = true) {
 	// Calculate from flag
 	let flagForceColor;
 	if (hasFlag('no-color') || hasFlag('no-colors')) {
