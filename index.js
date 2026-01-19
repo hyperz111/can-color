@@ -9,7 +9,6 @@ function hasFlag(flag) {
 	return position !== -1 && (terminatorPosition === -1 || position < terminatorPosition);
 }
 
-// eslint-disable-next-line complexity -- Intentionally
 export function canColor(stream, sniffFlags = true) {
 	const noFlagForceColor =
 		"FORCE_COLOR" in env
