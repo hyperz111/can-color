@@ -36,14 +36,14 @@ test("return true if `FORCE_COLOR` is in env", async (t) => {
 });
 
 test("return true if `FORCE_COLOR` is in env, but with --color flag", async (t) => {
-	process.argv = ["--color=256"];
+	process.argv = ["--color"];
 	process.env.FORCE_COLOR = "true";
 	const result = await importMain();
 	t.assert.equal(result, true);
 });
 
 test("return true if `FORCE_COLOR` is in env, but with --color flag #2", async (t) => {
-	process.argv = ["--color=256"];
+	process.argv = ["--color"];
 	process.env.FORCE_COLOR = "1";
 	const result = await importMain();
 	t.assert.equal(result, true);
