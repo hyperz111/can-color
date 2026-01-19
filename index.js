@@ -15,17 +15,17 @@ export function canColor(stream, sniffFlags = true) {
 		"FORCE_COLOR" in env
 			? env.FORCE_COLOR === "false"
 				? false
-				: ["", "true"].includes(env.FORCE_COLOR) || Boolean(Math.min(+env.FORCE_COLOR, 1))
+				: ["", "true"].includes(env.FORCE_COLOR) || !!Math.min(+env.FORCE_COLOR, 1)
 			: undefined;
 
 	const flagForceColor =
-		noFlagForceColor !== undefined
-			? noFlagForceColor
-			: hasFlag("--no-color")
+		noFlagForceColor === undefined
+			? hasFlag("--no-color")
 				? false
 				: hasFlag("--color")
 					? true
-					: undefined;
+					: undefined
+			: noFlagForceColor;
 
 	let forceColor = sniffFlags ? flagForceColor : noFlagForceColor;
 
