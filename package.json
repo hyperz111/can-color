@@ -18,7 +18,7 @@
 		"node": ">=20"
 	},
 	"scripts": {
-		"test": "xo && node --test && tstyche",
+		"test": "prettier -c . && node --test && tstyche",
 		"format": "prettier -w ."
 	},
 	"files": [
@@ -53,7 +53,6 @@
 		"@hyperz111/prettier-config": "^1.0.3",
 		"@types/node": "^22.10.2",
 		"prettier": "^3.8.0",
-		"tstyche": "^6.0.2",
-		"xo": "^0.60.0"
+		"tstyche": "^6.0.2"
 	}
 }
