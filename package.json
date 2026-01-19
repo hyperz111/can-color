@@ -1,6 +1,6 @@
 {
 	"name": "can-color",
-	"version": "10.2.2",
+	"version": "0.1.0",
 	"description": "Detect whether a terminal supports color",
 	"license": "MIT",
 	"repository": "https://github.com/hyperz111/can-color",
