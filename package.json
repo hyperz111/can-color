@@ -1,9 +1,9 @@
 {
-	"name": "has-color",
+	"name": "can-color",
 	"version": "10.2.2",
 	"description": "Detect whether a terminal supports color",
 	"license": "MIT",
-	"repository": "https://github.com/hyperz111/has-color",
+	"repository": "https://github.com/hyperz111/can-color",
 	"author": "Hyper-Z11 (https://github.com/hyperz111)",
 	"type": "module",
 	"exports": {

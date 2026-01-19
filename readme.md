@@ -1,4 +1,4 @@
-# `has-color`
+# can-color
 
 Detect whether a terminal supports color. The minimal fork of [chalk/supports-color](https://github.com/chalk/supports-color), with some differents.
 
@@ -9,22 +9,22 @@ Detect whether a terminal supports color. The minimal fork of [chalk/supports-co
 ## Install
 
 ```sh
-npm install has-color
+npm install can-color
 ```
 
 ## Usage
 
 ```js
-import { hasColor } from "has-color";
+import { canColor } from "can-color";
 
-if (hasColor(process.stdout)) {
+if (canColor(process.stdout)) {
 	console.log("Terminal stdout supports color");
 }
 ```
 
 ## API
 
-### `hasColor(stream?, sniffFlags?)`
+### `canColor(stream?, sniffFlags?)`
 
 Return: `boolean`
 
